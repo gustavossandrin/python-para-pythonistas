@@ -13,7 +13,12 @@ class Jquery:
 
 jquery = Jquery()
 
-jquery.ready(lambda: print('olá mundo'))
+
+def ola_mundo():
+    print('olá mundo')
+
+
+jquery.ready(ola_mundo)
 
 if __name__ == '__main__':
     print('Main')
