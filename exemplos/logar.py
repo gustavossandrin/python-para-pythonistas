@@ -1,21 +1,22 @@
-import functools
+from functools import partial
 from time import strftime
+import functools
 
 
-def logar(fmt='%H:%M:%S'):
-    def decorator(func):
-        @functools.wraps(func)
-        def envoltoria(*args, **kwargs):
-            agora = strftime(fmt)
-            print(f'{agora} executando função {func.__name__}')
-            return func(*args, **kwargs)
+def logar(func=None, *, fmt='%H:%M:%S'):
+    if func is None:
+        return partial(logar, fmt=fmt)
 
-        return envoltoria
+    @functools.wraps(func)
+    def envoltoria(*args, **kwargs):
+        agora = strftime(fmt)
+        print(f'{agora} executando função {func.__name__}')
+        return func(*args, **kwargs)
 
-    return decorator
+    return envoltoria
 
 
-@logar()
+@logar
 def ola_mundo():
     """função olá mundo"""
     return 'olá mundo'
@@ -24,6 +25,7 @@ def ola_mundo():
 @logar()
 def hello(nome):
     return f'hello {nome}'
+
 
 if __name__ == '__main__':
     print(ola_mundo())
