@@ -23,7 +23,7 @@ class _ModeloMeta(type):
         for nome, propriedade in propriedades.items():
             if hasattr(propriedade, 'set_nome'):
                 propriedade.set_nome(nome)
-        super().__init__(cls_name, bases, propriedade)
+        super().__init__(cls_name, bases, propriedades)
 
 
 class ItemPedido(metaclass=_ModeloMeta):
